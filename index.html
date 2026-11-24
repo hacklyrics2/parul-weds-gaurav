@@ -747,6 +747,177 @@
           linear-gradient(180deg,#571426,#38091a 58%,#2a0a12);
       }
 
+      /* ============================================================
+         BEST SLIDES — premium 3D coverflow for both carousels
+         Vaivahik Karyakram + Hamari Kahani : centre card sabse bada
+         aur saaf, side cards halke chhote, gold border, soft shadow,
+         smooth swipe + auto-slide + fade/slide change
+         ============================================================ */
+
+      /* ---------- shared : bade saaf dots aur buttons ---------- */
+      .fest-nav{ gap:1.25rem; margin-top:.9rem; }
+      .nav-btn, .story-arrow{
+        width:54px; height:54px; min-height:54px; flex:0 0 54px;
+        font-size:1.55rem; line-height:1; color:#fff8e6;
+        background:linear-gradient(160deg,#8a3049,var(--wine-deep));
+        border:2px solid var(--gold-bright);
+        box-shadow:0 14px 28px rgba(71,18,31,.30), 0 4px 10px rgba(184,134,46,.35), inset 0 1px 0 rgba(255,243,214,.35);
+      }
+      .nav-btn:hover, .story-arrow:hover{ background:linear-gradient(160deg,#9c3a56,var(--wine)); }
+      .nav-btn:active, .story-arrow:active{ transform:scale(.92); }
+      .dots, .story-dots{ gap:.35rem; align-items:center; }
+      .dot-hit{ padding:12px 5px; }
+      .dot{
+        width:10px; height:10px; background:rgba(110,31,47,.28);
+        box-shadow:inset 0 0 0 1px rgba(184,134,46,.45);
+        transition:width .45s cubic-bezier(.25,.8,.3,1), background .35s ease, transform .35s ease;
+      }
+      .dot.on{
+        width:32px; border-radius:999px; transform:none;
+        background:linear-gradient(90deg,var(--gold-bright),var(--marigold));
+        box-shadow:0 4px 10px rgba(184,134,46,.45);
+      }
+
+      /* ---------- Vaivahik Karyakram : 3D coverflow ---------- */
+      .fest-stage{
+        height:572px; perspective:1700px; margin-top:.6rem;
+        touch-action:pan-y; cursor:grab;
+      }
+      .fest-stage:active{ cursor:grabbing; }
+      .fest-card{
+        width:min(86vw,352px); height:500px;
+        margin-left:calc(min(86vw,352px) / -2); margin-top:-250px;
+        padding:2rem 1.6rem 1.6rem; border-radius:26px;
+        background:
+          radial-gradient(120% 55% at 50% 0%, rgba(255,196,92,.20), transparent 60%),
+          linear-gradient(175deg,#fffef9,#fdf3dc 72%,#f9e8c8);
+        border:2px solid rgba(212,175,55,.95);
+        box-shadow:0 18px 34px rgba(110,31,47,.16);
+        transition:transform .78s cubic-bezier(.22,.85,.28,1), opacity .78s ease, filter .78s ease, box-shadow .78s ease;
+      }
+      .fest-card::before{ inset:9px; border:1.5px solid rgba(184,134,46,.5); border-radius:19px; }
+      .fest-card::after{
+        content:"❦"; position:absolute; top:14px; left:50%; transform:translateX(-50%);
+        font-size:.8rem; color:rgba(184,134,46,.75); pointer-events:none;
+      }
+      .fest-card.is-center{
+        box-shadow:0 42px 70px rgba(110,31,47,.32), 0 10px 22px rgba(184,134,46,.28), 0 0 0 1px rgba(255,243,214,.7) inset;
+      }
+      .fest-card.is-center .fest-band,
+      .fest-card.is-center .fest-name,
+      .fest-card.is-center .fest-rows,
+      .fest-card.is-center .fest-foot{ animation:festIn .7s cubic-bezier(.2,.8,.3,1) both; }
+      .fest-card.is-center .fest-name{ animation-delay:.05s; }
+      .fest-card.is-center .fest-rows{ animation-delay:.1s; }
+      .fest-card.is-center .fest-foot{ animation-delay:.15s; }
+      @keyframes festIn{ from{ opacity:.35; transform:translateY(12px); } to{ opacity:1; transform:none; } }
+      .fest-band{
+        width:74px; height:74px; font-size:1.9rem; margin-bottom:1rem;
+        border:2px solid rgba(255,243,214,.85);
+        box-shadow:0 16px 30px rgba(110,31,47,.30), 0 0 0 5px rgba(212,175,55,.18);
+      }
+      .fest-name{
+        font-size:clamp(1.55rem,6.4vw,1.85rem); line-height:1.28; font-weight:800;
+        text-shadow:0 1px 0 rgba(255,255,255,.7);
+      }
+      .fest-day{
+        margin-top:.55rem; font-size:.78rem; letter-spacing:.14em; text-indent:.14em;
+        color:#9a6a12; line-height:1.6;
+      }
+      .fest-day::after{
+        content:""; display:block; width:52px; height:2px; margin:.65rem auto 0;
+        background:linear-gradient(90deg,transparent,var(--gold-bright),transparent);
+      }
+      .fest-rows{ margin-top:1.15rem; gap:.85rem; font-size:.96rem; }
+      .fest-row{ gap:.75rem; }
+      .fest-row .ic{
+        width:34px; height:34px; flex:0 0 34px;
+        background:linear-gradient(160deg,rgba(255,196,92,.35),rgba(212,175,55,.18));
+        border:1px solid rgba(184,134,46,.4);
+      }
+      .fest-row .ic svg{ width:17px; height:17px; }
+      .fest-row .tx{ line-height:1.6; color:#4c322b; font-size:.96rem; }
+      .fest-row .tx b{ font-size:1rem; }
+      .fest-foot{ font-size:1.65rem; }
+      .fest-progress{
+        width:min(64vw,240px); height:4px; margin:1.05rem auto 0; border-radius:99px;
+        background:rgba(110,31,47,.14); overflow:hidden;
+      }
+      .fest-progress i{
+        display:block; height:100%; width:25%; border-radius:99px;
+        background:linear-gradient(90deg,var(--gold-bright),var(--marigold));
+        transition:transform .78s cubic-bezier(.22,.85,.28,1);
+      }
+
+      /* ---------- Hamari Kahani : 3D coverflow ---------- */
+      .story-frame{
+        max-width:640px; height:572px; overflow:visible;
+        background:transparent; border:none; box-shadow:none;
+        perspective:1700px; touch-action:pan-y; cursor:grab;
+      }
+      .story-frame:active{ cursor:grabbing; }
+      .story-track{
+        display:block; position:relative; width:100%; height:100%;
+        transform:none !important; transition:none;
+        transform-style:preserve-3d;
+      }
+      .story-slide{
+        position:absolute; left:50%; top:50%;
+        width:min(86vw,448px); height:512px;
+        margin-left:calc(min(86vw,448px) / -2); margin-top:-256px;
+        border-radius:26px; overflow:hidden; background:#2b1418;
+        border:2px solid rgba(212,175,55,.95);
+        box-shadow:0 18px 34px rgba(110,31,47,.20);
+        transition:transform .82s cubic-bezier(.22,.85,.28,1), opacity .82s ease, filter .82s ease, box-shadow .82s ease;
+        will-change:transform; user-select:none; -webkit-user-select:none;
+      }
+      .story-slide::after{
+        content:""; position:absolute; inset:9px; border:1.5px solid rgba(240,223,174,.5);
+        border-radius:19px; pointer-events:none; z-index:2;
+      }
+      .story-slide.is-center{
+        box-shadow:0 44px 74px rgba(43,10,18,.48), 0 10px 24px rgba(184,134,46,.30);
+      }
+      .story-slide img{
+        width:100%; height:100%; aspect-ratio:auto; object-fit:cover;
+        pointer-events:none;
+      }
+      .story-cap{ padding:3.4rem 1.7rem 1.6rem; z-index:1; }
+      .story-slide.is-center .story-cap{ animation:festIn .7s cubic-bezier(.2,.8,.3,1) both; }
+      .story-cap .s-when{ font-size:.72rem; letter-spacing:.3em; color:var(--champagne); }
+      .story-cap h3{ font-size:clamp(1.6rem,6.6vw,1.95rem); line-height:1.25; margin:.4rem 0 .45rem; text-shadow:0 2px 12px rgba(0,0,0,.5); }
+      .story-cap p{ font-size:.99rem; line-height:1.75; color:#fdf0da; }
+      .story-arrow{ top:50%; transform:translateY(-50%); z-index:30; position:absolute; }
+      .story-arrow:active{ transform:translateY(-50%) scale(.92); }
+      .story-arrow.prev{ left:.35rem; } .story-arrow.next{ right:.35rem; }
+      .story-dots{ margin-top:1.15rem; }
+      .story-progress{
+        width:min(64vw,240px); height:4px; margin:.95rem auto 0; border-radius:99px;
+        background:rgba(110,31,47,.14); overflow:hidden;
+      }
+      .story-progress i{
+        display:block; height:100%; width:33.333%; border-radius:99px;
+        background:linear-gradient(90deg,var(--rani),var(--gold-bright));
+        transition:transform .82s cubic-bezier(.22,.85,.28,1);
+      }
+
+      @media (max-width:420px){
+        .fest-stage{ height:552px; }
+        .fest-card{ height:484px; margin-top:-242px; padding:1.8rem 1.35rem 1.4rem; }
+        .story-frame{ height:548px; }
+        .story-slide{ height:490px; margin-top:-245px; }
+        .story-arrow.prev{ left:.1rem; } .story-arrow.next{ right:.1rem; }
+      }
+      @media (min-width:760px){
+        .fest-stage{ height:584px; }
+        .story-frame{ height:584px; }
+      }
+      @media (prefers-reduced-motion: reduce){
+        .fest-card.is-center .fest-band, .fest-card.is-center .fest-name,
+        .fest-card.is-center .fest-rows, .fest-card.is-center .fest-foot,
+        .story-slide.is-center .story-cap{ animation:none; }
+      }
+
     </style>
   </head>
   <body class="locked">
@@ -1054,6 +1225,7 @@
             <div class="dots" id="festDots"></div>
             <button class="nav-btn" id="festNext" type="button" aria-label="Next function">›</button>
           </div>
+          <div class="fest-progress rv" aria-hidden="true"><i id="festProg"></i></div>
         </div>
       </section>
 
@@ -1096,6 +1268,7 @@
             <button class="story-arrow next" id="storyNext" type="button" aria-label="Next story">›</button>
           </div>
           <div class="story-dots" id="storyDots"></div>
+          <div class="story-progress" aria-hidden="true"><i id="storyProg"></i></div>
         </div>
       </section>
 
@@ -1590,33 +1763,64 @@
           hit.addEventListener("click", function(){ goFest(i); });
           festDots.appendChild(hit);
         });
-        function layoutFest(){
+        var festTimer = null, festResume = null, festDrag = null;
+        function layoutFest(dragPx){
+          var dragPct = dragPx ? (dragPx / 3.4) : 0;
           festCards.forEach(function(card, i){
             var off = i - festIdx;
-            var x = off * 62, z = -Math.abs(off) * 190, ry = off * -34;
-            card.style.transform = "translateX(" + x + "%) translateZ(" + z + "px) rotateY(" + ry + "deg)";
-            card.style.opacity = Math.abs(off) > 2 ? "0" : (Math.abs(off) === 2 ? "0.45" : "1");
-            card.style.filter = off === 0 ? "none" : "saturate(.82)";
-            card.style.zIndex = String(10 - Math.abs(off));
-            card.style.pointerEvents = Math.abs(off) > 2 ? "none" : "auto";
+            /* wrap distance so the loop feels endless */
+            if (off > FESTS.length / 2) off -= FESTS.length;
+            if (off < -FESTS.length / 2) off += FESTS.length;
+            var a = Math.abs(off);
+            var x = off * 68 + dragPct;
+            var z = -a * 210;
+            var ry = off * -32;
+            var sc = off === 0 ? 1 : (a === 1 ? 0.84 : 0.7);
+            card.style.transform = "translateX(" + x + "%) translateZ(" + z + "px) rotateY(" + ry + "deg) scale(" + sc + ")";
+            card.style.opacity = a > 2 ? "0" : (a === 2 ? "0.38" : (a === 1 ? "0.62" : "1"));
+            card.style.filter = off === 0 ? "none" : "saturate(.68) brightness(1.02) blur(" + (a === 1 ? "0.6" : "1.4") + "px)";
+            card.style.zIndex = String(20 - a);
+            card.style.pointerEvents = a > 1 ? "none" : "auto";
+            card.classList.toggle("is-center", off === 0);
           });
           $$(".dot", festDots).forEach(function(d, i){ d.classList.toggle("on", i === festIdx); });
+          var fp = $("#festProg");
+          if (fp) fp.style.transform = "translateX(" + (festIdx * 100) + "%)";
         }
-        function goFest(i){
-          festIdx = Math.max(0, Math.min(FESTS.length - 1, i));
-          layoutFest();
+        function startFestAuto(){
+          clearInterval(festTimer);
+          if (!reduced) festTimer = setInterval(function(){ goFest(festIdx + 1, true); }, 4600);
+        }
+        function pauseFestAuto(){
+          clearInterval(festTimer); clearTimeout(festResume);
+          festResume = setTimeout(startFestAuto, 6500);
+        }
+        function goFest(i, auto){
+          festIdx = ((i % FESTS.length) + FESTS.length) % FESTS.length;
+          layoutFest(0);
+          if (!auto) pauseFestAuto();
         }
         $("#festPrev").addEventListener("click", function(){ goFest(festIdx - 1); });
         $("#festNext").addEventListener("click", function(){ goFest(festIdx + 1); });
-        var swipeX = null;
-        stage.addEventListener("pointerdown", function(e){ swipeX = e.clientX; });
-        stage.addEventListener("pointerup", function(e){
-          if (swipeX === null) return;
-          var dx = e.clientX - swipeX; swipeX = null;
-          if (Math.abs(dx) > 42) goFest(festIdx + (dx < 0 ? 1 : -1));
+        /* smooth finger swipe : card haath ke saath chalta hai, chhodne par snap */
+        stage.addEventListener("pointerdown", function(e){ festDrag = { x: e.clientX, dx: 0 }; clearInterval(festTimer); });
+        stage.addEventListener("pointermove", function(e){
+          if (!festDrag) return;
+          festDrag.dx = e.clientX - festDrag.x;
+          if (Math.abs(festDrag.dx) > 4) layoutFest(festDrag.dx);
         });
-        stage.addEventListener("pointercancel", function(){ swipeX = null; });
-        goFest(0);
+        function endFestDrag(){
+          if (!festDrag) return;
+          var dx = festDrag.dx; festDrag = null;
+          if (Math.abs(dx) > 36) goFest(festIdx + (dx < 0 ? 1 : -1));
+          else { layoutFest(0); pauseFestAuto(); }
+        }
+        stage.addEventListener("pointerup", endFestDrag);
+        stage.addEventListener("pointercancel", endFestDrag);
+        stage.addEventListener("pointerleave", endFestDrag);
+        if (stage) stage.addEventListener("mouseenter", function(){ clearInterval(festTimer); });
+        if (stage) stage.addEventListener("mouseleave", function(){ if (!festDrag) pauseFestAuto(); });
+        goFest(0, true); startFestAuto();
 
         /* ---------- our story slider ---------- */
         var track = $("#storyTrack"), slides = $$(".story-slide", track), sIdx = 0, sTimer = null;
@@ -1630,25 +1834,66 @@
           hit.addEventListener("click", function(){ goStory(i); restartAuto(); });
           storyDots.appendChild(hit);
         });
-        function goStory(i){
-          sIdx = (i + slides.length) % slides.length;
-          track.style.transform = "translateX(-" + (sIdx * 100) + "%)";
+        var storyDrag = null, storyResume = null;
+        function layoutStory(dragPx){
+          var dragPct = dragPx ? (dragPx / 3.8) : 0;
+          slides.forEach(function(sl, i){
+            var off = i - sIdx;
+            if (off > slides.length / 2) off -= slides.length;
+            if (off < -slides.length / 2) off += slides.length;
+            var a = Math.abs(off);
+            var x = off * 66 + dragPct;
+            var z = -a * 220;
+            var ry = off * -30;
+            var sc = off === 0 ? 1 : (a === 1 ? 0.84 : 0.7);
+            sl.style.transform = "translateX(" + x + "%) translateZ(" + z + "px) rotateY(" + ry + "deg) scale(" + sc + ")";
+            sl.style.opacity = a > 1 ? "0" : (a === 1 ? "0.55" : "1");
+            sl.style.filter = off === 0 ? "none" : "saturate(.65) brightness(.92) blur(0.8px)";
+            sl.style.zIndex = String(20 - a);
+            sl.style.pointerEvents = a > 1 ? "none" : "auto";
+            sl.classList.toggle("is-center", off === 0);
+          });
           $$(".dot", storyDots).forEach(function(d, j){ d.classList.toggle("on", j === sIdx); });
+          var sp = $("#storyProg");
+          if (sp) sp.style.transform = "translateX(" + (sIdx * 100) + "%)";
+        }
+        function goStory(i, auto){
+          sIdx = ((i % slides.length) + slides.length) % slides.length;
+          layoutStory(0);
+          if (!auto) restartAuto();
+        }
+        function startStoryAuto(){
+          clearInterval(sTimer);
+          if (!reduced) sTimer = setInterval(function(){ goStory(sIdx + 1, true); }, 5200);
         }
         function restartAuto(){
-          clearInterval(sTimer);
-          if (!reduced) sTimer = setInterval(function(){ goStory(sIdx + 1); }, 5200);
+          clearInterval(sTimer); clearTimeout(storyResume);
+          storyResume = setTimeout(startStoryAuto, 6500);
         }
-        $("#storyPrev").addEventListener("click", function(){ goStory(sIdx - 1); restartAuto(); });
-        $("#storyNext").addEventListener("click", function(){ goStory(sIdx + 1); restartAuto(); });
-        var storyFrame = $("#storyFrame"), stX = null;
-        storyFrame.addEventListener("pointerdown", function(e){ stX = e.clientX; });
-        storyFrame.addEventListener("pointerup", function(e){
-          if (stX === null) return;
-          var dx = e.clientX - stX; stX = null;
-          if (Math.abs(dx) > 42){ goStory(sIdx + (dx < 0 ? 1 : -1)); restartAuto(); }
+        slides.forEach(function(sl, i){
+          sl.addEventListener("click", function(){ if (sIdx !== i) goStory(i); });
         });
-        goStory(0); restartAuto();
+        $("#storyPrev").addEventListener("click", function(){ goStory(sIdx - 1); });
+        $("#storyNext").addEventListener("click", function(){ goStory(sIdx + 1); });
+        var storyFrame = $("#storyFrame");
+        storyFrame.addEventListener("pointerdown", function(e){ storyDrag = { x: e.clientX, dx: 0 }; clearInterval(sTimer); });
+        storyFrame.addEventListener("pointermove", function(e){
+          if (!storyDrag) return;
+          storyDrag.dx = e.clientX - storyDrag.x;
+          if (Math.abs(storyDrag.dx) > 4) layoutStory(storyDrag.dx);
+        });
+        function endStoryDrag(){
+          if (!storyDrag) return;
+          var dx = storyDrag.dx; storyDrag = null;
+          if (Math.abs(dx) > 36) goStory(sIdx + (dx < 0 ? 1 : -1));
+          else { layoutStory(0); restartAuto(); }
+        }
+        storyFrame.addEventListener("pointerup", endStoryDrag);
+        storyFrame.addEventListener("pointercancel", endStoryDrag);
+        storyFrame.addEventListener("pointerleave", endStoryDrag);
+        storyFrame.addEventListener("mouseenter", function(){ clearInterval(sTimer); });
+        storyFrame.addEventListener("mouseleave", function(){ if (!storyDrag) restartAuto(); });
+        goStory(0, true); startStoryAuto();
 
         /* ---------- scratch to reveal the date ---------- */
         var scratchOpened = 0;
