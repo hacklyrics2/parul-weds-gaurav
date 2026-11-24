@@ -20,8 +20,13 @@
         --champagne:#f0dfae;
         --ivory:#faf4e8;
         --paper:#fffdf6;
-        --blush:#f9e7e1;
-        --blush-deep:#f3d3c8;
+        --blush:#fae3d0;
+        --blush-deep:#f2c49b;
+        --marigold:#f59e0b;
+        --marigold-deep:#dd7f0e;
+        --mehndi:#5d7d3a;
+        --mehndi-deep:#42591f;
+        --rani:#b03060;
         --ink:#402626;
         --muted:#96786c;
         --shadow:0 24px 60px rgba(71,18,31,.28);
@@ -46,9 +51,10 @@
       .paper-bg{
         position:fixed; inset:0; z-index:-2; pointer-events:none;
         background:
-          radial-gradient(1100px 500px at 85% -5%, rgba(212,175,55,.14), transparent 60%),
-          radial-gradient(900px 480px at -10% 30%, rgba(243,211,200,.55), transparent 60%),
-          radial-gradient(900px 600px at 110% 75%, rgba(243,211,200,.45), transparent 60%),
+          radial-gradient(1100px 500px at 85% -5%, rgba(245,158,11,.20), transparent 60%),
+          radial-gradient(900px 480px at -10% 30%, rgba(245,158,11,.16), transparent 60%),
+          radial-gradient(900px 600px at 110% 75%, rgba(93,125,58,.12), transparent 60%),
+          radial-gradient(800px 500px at 50% 110%, rgba(110,31,47,.08), transparent 60%),
           var(--ivory);
       }
 
@@ -56,7 +62,7 @@
       #loader{
         position:fixed; inset:0; z-index:200; display:flex; flex-direction:column;
         align-items:center; justify-content:center; gap:1.1rem;
-        background:linear-gradient(160deg,#fdf6ec,#f9e7e1);
+        background:linear-gradient(160deg,#fdf6ec,#fbe7c8 60%,#f5d5a5);
         transition:opacity .7s ease, visibility .7s;
       }
       #loader.done{ opacity:0; visibility:hidden; }
@@ -79,7 +85,7 @@
       #gate{
         position:fixed; inset:0; z-index:100; overflow:hidden;
         display:flex; flex-direction:column; align-items:center; justify-content:center;
-        background:linear-gradient(165deg,#fbeeea 0%,#f7ded4 55%,#f3cfc2 100%);
+        background:linear-gradient(165deg,#fdf3e0 0%,#f9dfba 55%,#f2c48d 100%);
         transition:opacity 1s ease, visibility 1s;
       }
       #gate.gone{ opacity:0; visibility:hidden; pointer-events:none; }
@@ -92,7 +98,7 @@
         background-position:center bottom; mask-image:linear-gradient(to top, black 55%, transparent);
         -webkit-mask-image:linear-gradient(to top, black 55%, transparent);
       }
-      .gate-veil{ position:absolute; inset:0; background:radial-gradient(ellipse at 50% 42%, rgba(255,252,246,.25), rgba(249,231,225,.55) 78%); }
+      .gate-veil{ position:absolute; inset:0; background:radial-gradient(ellipse at 50% 42%, rgba(255,252,246,.25), rgba(250,231,203,.55) 78%); }
       .gate-inner{ position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; padding:1rem; width:100%; }
       .gate-kicker{ font-size:.62rem; letter-spacing:.34em; text-transform:uppercase; color:var(--wine-soft); text-indent:.34em; margin-bottom:.4rem; text-align:center; padding:0 .75rem; }
       .gate-title{ font-family:'Great Vibes',cursive; font-size:clamp(1.65rem,8.5vw,2.8rem); color:var(--wine); line-height:1.15; margin-bottom:1.6rem; text-shadow:0 2px 14px rgba(255,255,255,.7); text-align:center; padding:0 .75rem; }
@@ -492,7 +498,7 @@
       }
 
       /* ---------- envelope gate (Folde style) ---------- */
-      #gate{ background:linear-gradient(165deg,#fdf0ea 0%,#f9ded2 55%,#f4cfc0 100%); }
+      #gate{ background:linear-gradient(165deg,#fdf3e0 0%,#f8ddb0 55%,#efb877 100%); }
       .env-scene{ perspective:1300px; width:100%; display:flex; justify-content:center; }
       .envelope{
         position:relative; width:min(86vw,350px); aspect-ratio:7/4.9; perspective:1100px;
@@ -512,18 +518,18 @@
       .env-letter-date{ font-size:.6rem; letter-spacing:.3em; text-indent:.3em; color:var(--muted); text-transform:uppercase; }
       .env-body{
         position:absolute; inset:0; z-index:3; border-radius:6px; overflow:hidden;
-        background:linear-gradient(160deg,#f9e3d8,#f3cfc0);
-        box-shadow:inset 0 0 0 1px rgba(190,120,95,.35);
+        background:linear-gradient(160deg,#fbe0ba,#f2b183);
+        box-shadow:inset 0 0 0 1px rgba(176,94,40,.4), inset 0 -22px 30px rgba(160,80,20,.18);
       }
       .env-pattern{ position:absolute; inset:0; width:100%; height:100%; opacity:.55; pointer-events:none; }
       .env-pocket{ position:absolute; inset:0; }
-      .env-pocket.left{ clip-path:polygon(0 0,57% 50%,0 100%); background:linear-gradient(90deg,#f0c6b4,#f6d3c4); }
-      .env-pocket.right{ clip-path:polygon(100% 0,43% 50%,100% 100%); background:linear-gradient(-90deg,#f0c6b4,#f6d3c4); }
-      .env-pocket.bottom{ clip-path:polygon(0 100%,50% 40%,100% 100%); background:linear-gradient(0deg,#ecbda9,#f4cdbd); }
+      .env-pocket.left{ clip-path:polygon(0 0,57% 50%,0 100%); background:linear-gradient(90deg,#e89a63,#f6c491); }
+      .env-pocket.right{ clip-path:polygon(100% 0,43% 50%,100% 100%); background:linear-gradient(-90deg,#e89a63,#f6c491); }
+      .env-pocket.bottom{ clip-path:polygon(0 100%,50% 40%,100% 100%); background:linear-gradient(0deg,#e08a4e,#f2ab72); }
       .env-flap{
         position:absolute; left:0; right:0; top:0; height:54%; z-index:4;
         clip-path:polygon(0 0,100% 0,50% 100%);
-        background:linear-gradient(180deg,#f8ddd0,#efc3b2);
+        background:linear-gradient(180deg,#f9d3a1,#ee9f5c);
         transform-origin:top center;
         transition:transform .85s cubic-bezier(.3,.7,.3,1) .3s, z-index 0s .8s;
       }
@@ -565,7 +571,7 @@
       .envelope.open .wax-seal{ pointer-events:none; }
 
       /* ---------- hero : Folde peach style ---------- */
-      .hero2{ background:linear-gradient(180deg,#fceee4 0%,#f9ded0 55%,#f5d2c2 100%); }
+      .hero2{ background:linear-gradient(180deg,#fdf3e0 0%,#fbe0ba 55%,#f6c98d 100%); }
       .hero-latin{ margin:.7rem 0 .2rem; }
       .nm-latin{
         display:block; font-family:'Cormorant Garamond','Playfair Display',serif; font-weight:500;
@@ -575,7 +581,7 @@
       .amp-latin{ display:block; font-family:'Great Vibes',cursive; font-weight:400; font-size:clamp(1.9rem,7.5vw,2.8rem); color:var(--gold); line-height:1.05; }
       .hero-hindi{ font-family:'Noto Serif Devanagari',serif; font-weight:700; color:var(--wine); font-size:clamp(1.3rem,5.6vw,1.75rem); margin-top:.8rem; }
       .hero-hindi .hh-amp{ font-family:'Great Vibes',cursive; font-weight:400; color:var(--gold); padding:0 .2rem; font-size:1.15em; }
-      .wedding-day{ margin-top:1.15rem; font-size:.72rem; letter-spacing:.55em; text-indent:.55em; text-transform:uppercase; color:#a4695a; font-weight:600; }
+      .wedding-day{ margin-top:1.15rem; font-size:.72rem; letter-spacing:.55em; text-indent:.55em; text-transform:uppercase; color:#8f5a20; font-weight:600; }
       .royal-art{ width:min(88vw,470px); margin:1.3rem auto 0; }
       .royal-art svg{ width:100%; height:auto; display:block; }
       .date-trio{ display:flex; align-items:center; justify-content:center; gap:1.15rem; margin-top:1.1rem; }
@@ -585,7 +591,7 @@
       .date-stack .dy{ font-size:clamp(1.05rem,4.6vw,1.35rem); font-weight:500; letter-spacing:.3em; border-top:1px solid rgba(184,134,46,.65); padding-top:.3rem; }
       .save-date-line{
         margin-top:1.05rem; display:inline-flex; align-items:center; gap:.9rem;
-        font-size:.74rem; letter-spacing:.42em; text-indent:.42em; text-transform:uppercase; color:#a4695a; font-weight:600;
+        font-size:.74rem; letter-spacing:.42em; text-indent:.42em; text-transform:uppercase; color:#8f5a20; font-weight:600;
       }
       .save-date-line::before,.save-date-line::after{ content:""; width:38px; height:1px; background:var(--gold-bright); }
 
@@ -619,10 +625,62 @@
       .locked-wrap.reveal{ animation:wrapIn 1s ease both; }
       @keyframes wrapIn{ from{ opacity:0; transform:translateY(24px);} to{ opacity:1; transform:none;} }
 
+      /* ---------- warm shaadi colour grading : per-section tones ---------- */
+      #venue{ background:linear-gradient(180deg, rgba(245,158,11,.13), rgba(245,158,11,.04) 70%, transparent); }
+      #venue .sec-kicker{ color:var(--marigold-deep); }
+      #savethedate{ background:radial-gradient(90% 70% at 50% 0%, rgba(212,175,55,.16), transparent 65%), linear-gradient(180deg, rgba(240,223,174,.35), transparent); }
+      #festivities{ background:linear-gradient(180deg, rgba(93,125,58,.13), rgba(93,125,58,.04) 70%, transparent); }
+      #festivities .sec-kicker{ color:var(--mehndi-deep); }
+      #story{ background:linear-gradient(180deg, rgba(176,48,96,.09), rgba(212,175,55,.07) 75%, transparent); }
+      #story .sec-kicker{ color:var(--rani); }
+      #baal{ background:linear-gradient(180deg, rgba(245,158,11,.12), transparent); }
+      #baal .sec-kicker{ color:var(--marigold-deep); }
+      #parivar{ background:linear-gradient(180deg, rgba(93,125,58,.08), rgba(212,175,55,.07)); }
+      #parivar .sec-kicker{ color:var(--mehndi-deep); }
+      .closing{ background:linear-gradient(180deg, transparent, rgba(110,31,47,.07) 55%, rgba(245,158,11,.10)); }
+      .scratch-sec{ background:radial-gradient(120% 90% at 50% 0%, #4a2c1c, #2a1a12 58%, #1c110a); }
+
+      /* ---------- soft golden light ---------- */
+      .golden-light{
+        position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+        background:
+          radial-gradient(560px 380px at 18% 6%, rgba(255,196,92,.16), transparent 65%),
+          radial-gradient(640px 420px at 88% 34%, rgba(255,166,66,.12), transparent 65%),
+          radial-gradient(700px 460px at 12% 82%, rgba(212,175,55,.12), transparent 65%);
+        animation:lightDrift 14s ease-in-out infinite alternate;
+      }
+      @keyframes lightDrift{ from{ opacity:.75; transform:translate3d(0,0,0) scale(1);} to{ opacity:1; transform:translate3d(0,-14px,0) scale(1.04);} }
+
+      /* ---------- 3D depth : envelope, seal, cards ---------- */
+      .envelope{ transform-style:preserve-3d; transition:transform .35s ease-out, filter .35s ease; will-change:transform; }
+      .env-letter{ transform:translateZ(6px); }
+      .env-body{ transform:translateZ(2px); box-shadow:inset 0 0 0 1px rgba(176,94,40,.4), inset 0 -22px 30px rgba(160,80,20,.18), 0 10px 22px rgba(110,50,20,.18); }
+      .env-flap{ filter:drop-shadow(0 6px 8px rgba(120,60,15,.25)); }
+      .wax-seal{ transform:translate(-50%,-50%) translateZ(16px); filter:drop-shadow(0 10px 14px rgba(90,55,5,.4)); }
+      .seal-half{ box-shadow:0 14px 28px rgba(120,70,10,.5), inset 0 3px 6px rgba(255,255,255,.6), inset 0 -8px 14px rgba(90,55,5,.5); }
+      .royal-art{ filter:drop-shadow(0 20px 24px rgba(110,31,47,.20)); will-change:transform; }
+      .medallion{ box-shadow:0 18px 38px rgba(110,31,47,.32), 0 4px 10px rgba(184,134,46,.35); animation:medalFloat 5.5s ease-in-out infinite; }
+      @keyframes medalFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-6px);} }
+      .tilt{ transition:opacity .9s ease, transform .28s ease-out, box-shadow .28s ease; transform-style:preserve-3d; will-change:transform; }
+      .venue-card{ box-shadow:0 30px 54px rgba(110,31,47,.18), 0 6px 14px rgba(184,134,46,.18); }
+      .baal-card{ box-shadow:0 30px 54px rgba(110,31,47,.16), 0 6px 14px rgba(184,134,46,.16); }
+      .fam-card{ box-shadow:0 30px 54px rgba(110,31,47,.16), 0 6px 14px rgba(184,134,46,.16); }
+      .wine-card{ box-shadow:0 34px 64px rgba(43,10,18,.42), 0 8px 18px rgba(184,134,46,.25); }
+      .cd-cell{ box-shadow:0 16px 30px rgba(110,31,47,.13), inset 0 1px 0 #fff; }
+      .fest-card{ box-shadow:0 34px 56px rgba(110,31,47,.24), 0 6px 14px rgba(184,134,46,.14); }
+      .btn-gold{ background:linear-gradient(160deg,#eec95e,#c99327 55%,#a97a24); box-shadow:0 16px 32px rgba(184,134,46,.42), inset 0 1px 0 rgba(255,248,220,.7); }
+      .petal{ box-shadow:inset 0 0 4px rgba(255,255,255,.5), 0 3px 6px rgba(150,60,40,.18); }
+      @media (prefers-reduced-motion: reduce){
+        .golden-light{ animation:none; }
+        .medallion{ animation:none; }
+        .envelope, .tilt{ transition:none; }
+      }
+
     </style>
   </head>
   <body class="locked">
     <div class="paper-bg" aria-hidden="true"></div>
+    <div class="golden-light" aria-hidden="true"></div>
 
     <!-- Loader -->
     <div id="loader" role="status" aria-label="Loading invitation">
@@ -1152,7 +1210,8 @@
 
         /* ---------- background music : Aaj Sajeya (YouTube IFrame API) ---------- */
         var musicBtn = $("#musicBtn"), musicState = $("#musicState");
-        var ytPlayer = null, ytReady = false, musicWanted = false, musicPlaying = false;
+        var ytPlayer = null, ytReady = false, musicWanted = false, musicPlaying = false, musicSeeked = false;
+        var MUSIC_START = 55; /* start mid-song, at the main chorus — not from the beginning */
         function setMusicUI(){
           if (!musicBtn) return;
           musicBtn.classList.toggle("playing", musicPlaying);
@@ -1166,6 +1225,9 @@
         function tryPlayMusic(){
           if (ytReady && ytPlayer && ytPlayer.playVideo){
             try { ytPlayer.setVolume(75); } catch(e){}
+            if (!musicSeeked){
+              try { ytPlayer.seekTo(MUSIC_START, true); musicSeeked = true; } catch(e){}
+            }
             try { ytPlayer.playVideo(); } catch(e){}
           }
         }
@@ -1180,7 +1242,7 @@
             ytPlayer = new window.YT.Player("ytPlayer", {
               width: "2", height: "2",
               videoId: "8mYeTuzBQr4",
-              playerVars: { autoplay: 0, loop: 1, playlist: "8mYeTuzBQr4", playsinline: 1, rel: 0, modestbranding: 1, controls: 0, disablekb: 1 },
+              playerVars: { autoplay: 0, loop: 1, playlist: "8mYeTuzBQr4", playsinline: 1, rel: 0, modestbranding: 1, controls: 0, disablekb: 1, start: MUSIC_START },
               events: {
                 onReady: function(){
                   ytReady = true;
@@ -1191,7 +1253,7 @@
                   if (!window.YT) return;
                   if (ev.data === window.YT.PlayerState.PLAYING){ musicPlaying = true; setMusicUI(); }
                   else if (ev.data === window.YT.PlayerState.PAUSED){ musicPlaying = false; setMusicUI(); }
-                  else if (ev.data === window.YT.PlayerState.ENDED){ if (musicWanted) tryPlayMusic(); }
+                  else if (ev.data === window.YT.PlayerState.ENDED){ if (musicWanted){ try { ytPlayer.seekTo(MUSIC_START, true); } catch(e){} tryPlayMusic(); } }
                 }
               }
             });
@@ -1232,6 +1294,9 @@
               var d = parseFloat(l.getAttribute("data-depth") || 12);
               l.style.transform = "translate(" + (-nx * d) + "px," + (-ny * d) + "px)";
             });
+            if (envelope && !opened){
+              envelope.style.transform = "rotateY(" + (nx * 11) + "deg) rotateX(" + (-ny * 9) + "deg)";
+            }
           });
         }
         function playNames(){
@@ -1277,6 +1342,34 @@
           entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
         }, { threshold: 0.16 }) : null;
         $$(".rv").forEach(function(el){ if (io) io.observe(el); else el.classList.add("in"); });
+
+        /* ---------- 3D tilt cards, hero parallax & ambient petals ---------- */
+        if (!reduced && window.matchMedia("(pointer:fine)").matches){
+          $$(".venue-card,.baal-card,.fam-card,.wine-card").forEach(function(el){
+            el.classList.add("tilt");
+            el.addEventListener("pointermove", function(e){
+              var r = el.getBoundingClientRect();
+              var px = (e.clientX - r.left) / r.width - 0.5;
+              var py = (e.clientY - r.top) / r.height - 0.5;
+              el.style.transform = "perspective(950px) rotateY(" + (px * 6) + "deg) rotateX(" + (-py * 6) + "deg)";
+            });
+            el.addEventListener("pointerleave", function(){ el.style.transform = ""; });
+          });
+          var heroSec = $(".hero"), royalArt = $(".royal-art");
+          if (heroSec && royalArt){
+            heroSec.addEventListener("pointermove", function(e){
+              var nx = (e.clientX / window.innerWidth - 0.5), ny = (e.clientY / window.innerHeight - 0.5);
+              royalArt.style.transform = "translate(" + (nx * 12) + "px," + (ny * 8) + "px)";
+            });
+          }
+        }
+        if (!reduced){
+          setInterval(function(){
+            if (!opened || document.hidden) return;
+            if (petalLayer.childElementCount > 10) return;
+            spawnPetal(Math.random() * window.innerWidth, -24, { spread: 120 });
+          }, 3000);
+        }
 
         /* ---------- countdown ---------- */
         var target = new Date("2026-11-30T19:00:00+05:30").getTime();
