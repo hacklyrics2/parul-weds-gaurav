@@ -402,6 +402,43 @@
       .hashtag{ margin-top:1.4rem; display:inline-block; padding:.55rem 1.3rem; border:1px solid rgba(184,134,46,.55); border-radius:999px; color:var(--wine); font-weight:600; letter-spacing:.12em; font-size:.8rem; background:rgba(255,253,246,.7); }
       .foot{ margin-top:3rem; font-size:.66rem; letter-spacing:.34em; text-transform:uppercase; color:var(--muted); text-indent:.34em; line-height:2.1; }
 
+      /* ---------- background music control ---------- */
+      #ytMusic{ position:fixed; left:0; bottom:0; width:2px; height:2px; overflow:hidden; opacity:.01; pointer-events:none; z-index:-1; }
+      #ytMusic iframe{ width:2px; height:2px; border:0; }
+      .music-control{
+        position:fixed; right:14px; bottom:calc(14px + env(safe-area-inset-bottom, 0px)); z-index:185;
+        display:flex; align-items:center; gap:.55rem; max-width:calc(100vw - 28px);
+        padding:.42rem .85rem .42rem .42rem; border-radius:999px; border:1px solid rgba(212,175,55,.7);
+        background:linear-gradient(160deg, rgba(125,39,57,.96), rgba(71,18,31,.96));
+        color:var(--champagne); box-shadow:0 14px 30px rgba(43,10,18,.38);
+        opacity:0; transform:translateY(18px); pointer-events:none;
+        transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.3,1);
+        text-align:left;
+      }
+      .music-control.show{ opacity:1; transform:none; pointer-events:auto; }
+      .music-disc{
+        flex:0 0 34px; width:34px; height:34px; border-radius:50%;
+        display:flex; align-items:center; justify-content:center; color:#47121f;
+        background:conic-gradient(from 40deg, var(--gold-bright), #f4e3b2, var(--gold), var(--gold-bright));
+        box-shadow:inset 0 0 0 2px rgba(71,18,31,.18), 0 4px 10px rgba(0,0,0,.25);
+      }
+      .music-control.playing .music-disc{ animation:musicSpin 3.2s linear infinite; }
+      @keyframes musicSpin{ to{ transform:rotate(360deg); } }
+      .music-meta{ display:flex; flex-direction:column; min-width:0; line-height:1.25; }
+      .music-title{ font-size:.68rem; font-weight:600; letter-spacing:.04em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#fff3d6; }
+      .music-state{ font-size:.58rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-soft); }
+      .music-bars{ display:flex; align-items:flex-end; gap:2.5px; height:14px; margin-left:.15rem; flex:0 0 auto; }
+      .music-bars i{ display:block; width:3px; height:5px; border-radius:2px; background:var(--gold-bright); }
+      .music-control.playing .music-bars i{ animation:musicEq .8s ease-in-out infinite alternate; }
+      .music-control.playing .music-bars i:nth-child(2){ animation-delay:.18s; }
+      .music-control.playing .music-bars i:nth-child(3){ animation-delay:.36s; }
+      .music-control.playing .music-bars i:nth-child(4){ animation-delay:.1s; }
+      @keyframes musicEq{ from{ height:4px; } to{ height:14px; } }
+      @media (prefers-reduced-motion: reduce){
+        .music-control.playing .music-disc{ animation:none; }
+        .music-control.playing .music-bars i{ animation:none; height:9px; }
+      }
+
       /* toast */
       #toast{
         position:fixed; left:50%; bottom:1.4rem; transform:translate(-50%,80px); z-index:180;
@@ -1007,7 +1044,23 @@
         </div>
       </section>
       </div>
+
+      <!-- Music on/off : appears once the invitation is opened -->
+      <button class="music-control" id="musicBtn" type="button" aria-label="संगीत बंद करें — Aaj Sajeya, Goldie Sohel" aria-pressed="true" hidden>
+        <span class="music-disc" aria-hidden="true">
+          <svg id="musicIconNote" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9.5 18.5V6l10-2v12.5" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="6.8" cy="18.5" r="2.9" fill="currentColor"/><circle cx="16.8" cy="16.5" r="2.9" fill="currentColor"/></svg>
+          <svg id="musicIconOff" width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:none"><path d="M9.5 18.5V6l10-2v12.5" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" opacity=".45"/><circle cx="6.8" cy="18.5" r="2.9" fill="currentColor" opacity=".45"/><circle cx="16.8" cy="16.5" r="2.9" fill="currentColor" opacity=".45"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="music-meta">
+          <span class="music-title">Aaj Sajeya — Goldie Sohel</span>
+          <span class="music-state" id="musicState">संगीत · बज रहा है</span>
+        </span>
+        <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
     </main>
+
+    <!-- Background music : "Aaj Sajeya" — Goldie Sohel (YouTube, starts after the seal is opened) -->
+    <div id="ytMusic" aria-hidden="true"><div id="ytPlayer"></div></div>
 
     <div id="toast" role="status" aria-live="polite">पता कॉपी हो गया</div>
 
@@ -1097,6 +1150,79 @@
         window.addEventListener("load", function(){ setTimeout(hideLoader, 650); });
         setTimeout(hideLoader, 3200); /* safety */
 
+        /* ---------- background music : Aaj Sajeya (YouTube IFrame API) ---------- */
+        var musicBtn = $("#musicBtn"), musicState = $("#musicState");
+        var ytPlayer = null, ytReady = false, musicWanted = false, musicPlaying = false;
+        function setMusicUI(){
+          if (!musicBtn) return;
+          musicBtn.classList.toggle("playing", musicPlaying);
+          musicBtn.setAttribute("aria-pressed", musicPlaying ? "true" : "false");
+          musicBtn.setAttribute("aria-label", (musicPlaying ? "संगीत बंद करें" : "संगीत चलाएँ") + " — Aaj Sajeya, Goldie Sohel");
+          if (musicState) musicState.textContent = musicPlaying ? "संगीत · बज रहा है" : "संगीत · बंद है";
+          var n = $("#musicIconNote"), o = $("#musicIconOff");
+          if (n) n.style.display = musicPlaying ? "" : "none";
+          if (o) o.style.display = musicPlaying ? "none" : "";
+        }
+        function tryPlayMusic(){
+          if (ytReady && ytPlayer && ytPlayer.playVideo){
+            try { ytPlayer.setVolume(75); } catch(e){}
+            try { ytPlayer.playVideo(); } catch(e){}
+          }
+        }
+        function pauseMusic(){
+          if (ytReady && ytPlayer && ytPlayer.pauseVideo){
+            try { ytPlayer.pauseVideo(); } catch(e){}
+          }
+          musicPlaying = false; setMusicUI();
+        }
+        window.onYouTubeIframeAPIReady = function(){
+          try {
+            ytPlayer = new window.YT.Player("ytPlayer", {
+              width: "2", height: "2",
+              videoId: "8mYeTuzBQr4",
+              playerVars: { autoplay: 0, loop: 1, playlist: "8mYeTuzBQr4", playsinline: 1, rel: 0, modestbranding: 1, controls: 0, disablekb: 1 },
+              events: {
+                onReady: function(){
+                  ytReady = true;
+                  try { ytPlayer.setVolume(75); } catch(e){}
+                  if (musicWanted) tryPlayMusic();
+                },
+                onStateChange: function(ev){
+                  if (!window.YT) return;
+                  if (ev.data === window.YT.PlayerState.PLAYING){ musicPlaying = true; setMusicUI(); }
+                  else if (ev.data === window.YT.PlayerState.PAUSED){ musicPlaying = false; setMusicUI(); }
+                  else if (ev.data === window.YT.PlayerState.ENDED){ if (musicWanted) tryPlayMusic(); }
+                }
+              }
+            });
+          } catch(e){}
+        };
+        (function loadYT(){
+          var tag = document.createElement("script");
+          tag.src = "https://www.youtube.com/iframe_api";
+          tag.async = true;
+          var first = document.getElementsByTagName("script")[0];
+          if (first && first.parentNode) first.parentNode.insertBefore(tag, first);
+          else document.head.appendChild(tag);
+        })();
+        function startMusic(){
+          musicWanted = true;
+          if (musicBtn){ musicBtn.hidden = false; requestAnimationFrame(function(){ musicBtn.classList.add("show"); }); }
+          musicPlaying = true; setMusicUI();
+          tryPlayMusic();
+          /* if the API is still loading, onReady above will press play the moment it is ready */
+        }
+        if (musicBtn){
+          musicBtn.addEventListener("click", function(){
+            if (musicPlaying){
+              musicWanted = false; pauseMusic();
+            } else {
+              musicWanted = true; musicPlaying = true; setMusicUI(); tryPlayMusic();
+            }
+          });
+        }
+        setMusicUI();
+
         /* ---------- gate : parallax + envelope ---------- */
         var gate = $("#gate"), envelope = $("#envelope"), main = $("#main"), opened = false;
         if (!reduced){
@@ -1114,6 +1240,7 @@
         }
         function openEnvelope(){
           if (opened) return; opened = true;
+          startMusic();
           envelope.classList.add("open");
           var r = envelope.getBoundingClientRect();
           setTimeout(function(){ burst(r.left + r.width / 2, r.top + r.height * 0.5, 26); }, 480);
